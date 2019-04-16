@@ -7,7 +7,7 @@ var path = require('path'),
 var express        = require('express'),
       app          = express(),
       server       = require('http').createServer(app),
-      port         = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT ||9000,
+      port         = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT ||8000,
       ip           = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 //-------------------------------------------------------------------------
 
@@ -123,7 +123,7 @@ app.use(function(err, req, res, next){
 });
 
 
-app.listen(port, ip);
+app.listen(port);
 console.log('Server running on http://%s:%s', ip, port);
 
 
