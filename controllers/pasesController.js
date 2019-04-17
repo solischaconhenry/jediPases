@@ -29,3 +29,9 @@ exports.eliminarPase = function(eRequest, eResponse) {
         eResponse.send(data);
     });
 };
+
+exports.challenge = function(eRequest, eResponse) {
+  pasesService.challenge(eRequest.body, function(data){
+        eResponse.send(data);
+    });
+};

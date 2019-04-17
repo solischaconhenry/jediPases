@@ -54,3 +54,11 @@ exports.eliminarPase = function(idPase, callback) {
 	});
 };
 
+exports.challenge = function(doc, callback) {
+	var res = {
+		challenge: doc.challenge
+	}
+	callback(res);
+	
+};
+

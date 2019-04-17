@@ -108,6 +108,22 @@ Elimina un evento
   */
 app.delete('/api/pases/eliminar/:idPase', pasesController.eliminarPase);
 
+/*
+Responde var challege a Slack
+  Entrada: 
+        {
+           "token": "Jhj5dZrVaK7ZwHHjRyZWjbDl", 
+           "challenge": "3eZbrw1aBm2rZgRNFdxV2595E9CY3gmdALWMmHkvFXO7tYXAYM8P",
+           "type": "url_verification"
+        }
+  Salida: 
+        { success   // éxito: true, fracaso: false
+           "challenge":"3eZbrw1aBm2rZgRNFdxV2595E9CY3gmdALWMmHkvFXO7tYXAYM8P"
+           statusCode // éxito: 200, fracaso: 400
+        }
+  */
+app.post('/api/slack/challenge', pasesController.challenge);
+
 
 
 //main web site
