@@ -2,6 +2,32 @@ var path = require('path'),
 	fs = require('fs'),
  	repository = require('../dataAccess/repository.js');
 
+exports.nuevoPase = function(doc, callback) {
+	var params = {
+		query: doc,
+		collection: 'pases'
+	};
+	console.log(doc);
+	if(doc.text = "addPase"){
+		var res = {
+			text: doc.challenge,
+			channel: doc.team_id
+		}
+		callback(res);
+	}
+};
+
+exports.challenge = function(doc, callback) {
+	var res = {
+		challenge: doc.challenge
+	}
+	callback(res);
+	
+};
+
+
+
+
 exports.getPases = function(callback) {
     var params = {
         query: {},
@@ -22,15 +48,7 @@ exports.getPasePorId = function(idPase, callback) {
 	});
 };
 
-exports.nuevoPase = function(doc, callback) {
-	var params = {
-		query: doc,
-		collection: 'pases'
-	};
-	repository.addDocument(params, function(res) {
-		callback(res);
-	});
-};
+
 
 exports.editarPase = function(idPase, doc, callback) {
 	var params = {
@@ -52,13 +70,5 @@ exports.eliminarPase = function(idPase, callback) {
 	repository.deleteDocument(params, function(res) {
 		callback(res);
 	});
-};
-
-exports.challenge = function(doc, callback) {
-	var res = {
-		challenge: doc.challenge
-	}
-	callback(res);
-	
 };
 

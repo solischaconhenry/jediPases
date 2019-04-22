@@ -1,5 +1,35 @@
 var pasesService = require('../businessLogic/pasesService.js'); 
 
+exports.general = function(eRequest, eResponse) {
+  console.log(eRequest.body.type);
+  console.log(eRequest.body);
+
+  if(eRequest.body.type === 'url_verification'){
+    console.log(eRequest.body.type);
+
+   
+      pasesService.challenge(eRequest.body, function(data){
+         
+          eResponse.send(data);
+          
+      });
+ 
+  }
+  else if(eRequest.body.type === 'app_mention'){
+    
+      pasesService.nuevoPase(eRequest.body, function(data){
+            console.log(data);
+            eResponse.send(data);
+            console.log(data);
+        });
+    };
+
+};
+
+
+
+
+
 exports.getPases = function(eRequest, eResponse) {
   pasesService.getPases(function(data){
         eResponse.send(data);
@@ -12,11 +42,7 @@ exports.getPasePorId = function(eRequest, eResponse) {
     });
 };
 
-exports.nuevoPase = function(eRequest, eResponse) {
-  pasesService.nuevoPase(eRequest.body, function(data){
-        eResponse.send(data);
-    });
-};
+
 
 exports.editarPase= function(eRequest, eResponse) {
   pasesService.editarPase(eRequest.params.idPase, eRequest.body, function(data){
@@ -30,8 +56,3 @@ exports.eliminarPase = function(eRequest, eResponse) {
     });
 };
 
-exports.challenge = function(eRequest, eResponse) {
-  pasesService.challenge(eRequest.body, function(data){
-        eResponse.send(data);
-    });
-};

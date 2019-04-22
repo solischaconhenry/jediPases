@@ -37,76 +37,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-/*
-Devuelve todos los eventos
-  Entrada: ninguna
-  Salida: 
-        { success   // éxito: true, fracaso: false
-           data        // Array con la información de todos los eventos
-           statusCode // éxito: 200, fracaso: 400
-        }
-  */
-app.get('/api/pases/todos', pasesController.getPases);
-
-
-/*
-Devuelve un único evento
-  Entrada: 
-        id:     // id del evento que se busca
-  Salida: 
-        { success   // éxito: true, fracaso: false
-           data        // éxito: información del evento buscado, fracaso: null
-           statusCode // éxito: 200, fracaso: 400
-        }
-  */
-//app.get('/api/pases/:idPase', pasesController.getPasesPorId);
-
-/*
-Agrega un nuevo evento
-  Entrada: 
-        {
-           tipoEvento, // tipo del evento a crear
-           nombre,      // nombre del evento
-           descripcion // descripción del evento
-        }
-  Salida: 
-        { success   // éxito: true, fracaso: false
-           data        // éxito: id del evento insertado, fracaso: null
-           statusCode // éxito: 200, fracaso: 400
-        }
-  */
-app.post('/api/pases/nuevo', pasesController.nuevoPase);
-
-/*
-Edita un evento
-  Entrada: 
-        {
-           idEvento,    // id del evento a editar, para ubicar el evento <-- Parámetro
-           tipoEvento, // carrera o caminata
-           nombre,     // carrera o caminata
-           descripcion // descripción del evento
-        }
-  Salida: 
-        { success   // éxito: true, fracaso: false
-           data        // éxito: null, fracaso: null
-           statusCode // éxito: 200, fracaso: 400
-        }
-  */
-app.put('/api/pases/editar/:idPase', pasesController.editarPase);
-
-/*
-Elimina un evento
-  Entrada: 
-        {
-           idEvento    // id del evento a editar, para ubicar el evento
-        }
-  Salida: 
-        { success   // éxito: true, fracaso: false
-           data        // éxito: null, fracaso: null
-           statusCode // éxito: 200, fracaso: 400
-        }
-  */
-app.delete('/api/pases/eliminar/:idPase', pasesController.eliminarPase);
 
 /*
 Responde var challege a Slack
@@ -122,7 +52,7 @@ Responde var challege a Slack
            statusCode // éxito: 200, fracaso: 400
         }
   */
-app.post('/api/slack/challenge', pasesController.challenge);
+app.post('/api/slack/challenge', pasesController.general);
 
 
 
