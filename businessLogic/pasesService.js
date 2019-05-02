@@ -1,6 +1,7 @@
 var path = require('path'),
 	fs = require('fs'),
  	repository = require('../dataAccess/repository.js');
+const envKey = process.env.JOKES_BOT_TOKEN  	
 
 exports.nuevoPase = function(doc, callback) {
 	var params = {
@@ -10,8 +11,9 @@ exports.nuevoPase = function(doc, callback) {
 	console.log(doc);
 	if(doc.text = "addPase"){
 		var res = {
-			text: doc.challenge,
-			channel: doc.team_id
+			token: envKey,
+		    channel: doc.event.channel,
+		    text:"What's the Name?"
 		}
 		callback(res);
 	}

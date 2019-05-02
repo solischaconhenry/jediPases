@@ -7,22 +7,27 @@ exports.general = function(eRequest, eResponse) {
   if(eRequest.body.type === 'url_verification'){
     console.log(eRequest.body.type);
 
-   
-      pasesService.challenge(eRequest.body, function(data){
-         
-          eResponse.send(data);
-          
-      });
- 
+    pasesService.challenge(eRequest.body, function(data){
+        eResponse.send(data);  
+    });
   }
-  else if(eRequest.body.type === 'app_mention'){
+
+  else if(eRequest.body.event.type === 'message'){
     
-      pasesService.nuevoPase(eRequest.body, function(data){
-            console.log(data);
-            eResponse.send(data);
-            console.log(data);
-        });
-    };
+    pasesService.nuevoPase(eRequest.body, function(data){
+          console.log(data);
+          eResponse.send(data);
+          console.log(data);
+      });
+  }
+  else if(eRequest.body.event.type === 'app_mention'){
+    
+    pasesService.nuevoPase(eRequest.body, function(data){
+          console.log(data);
+          eResponse.send(data);
+          console.log(data);
+      });
+  };
 
 };
 
