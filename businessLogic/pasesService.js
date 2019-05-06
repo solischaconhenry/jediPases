@@ -1,5 +1,6 @@
 var path = require('path'),
 	fs = require('fs'),
+	https =  require('https'),
  	repository = require('../dataAccess/repository.js');
 const envKey = process.env.JOKES_BOT_TOKEN  	
 
@@ -10,12 +11,42 @@ exports.nuevoPase = function(doc, callback) {
 	};
 	console.log(doc);
 	if(doc.text = "addPase"){
-		var res = {
-			token: envKey,
+		const data = JSON.stringify({
+		 	token: envKey,
 		    channel: doc.event.channel,
-		    text:"What's the Name?"
-		}
-		callback(res);
+		    text:'What is the Name?'
+		});
+
+		const options = {
+		  hostname: 'https://slack.com',
+		  path: '/api/chat.postMessage',
+		  method: 'POST',
+		  headers: {
+		    'Content-Type': 'application/json',
+		    'Content-Length': Buffer.byteLength(data)
+		  }
+		};
+
+		const req = https.request(options, (res) => {
+		  console.log(`STATUS: ${res.statusCode}`);
+		  console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+
+		  res.setEncoding('utf8');
+		  res.on('data', (chunk) => {
+		    console.log(`BODY: ${chunk}`);
+		  });
+		  res.on('end', () => {
+		    console.log('No more data in response.');
+		  });
+		});
+
+		req.on('error', (e) => {
+		  console.error(`problem with request: ${e.message}`);
+		});
+
+		// Write data to request body
+		req.write(data);
+		req.end();
 	}
 };
 
