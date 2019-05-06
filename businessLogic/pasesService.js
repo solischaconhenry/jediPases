@@ -18,7 +18,7 @@ exports.nuevoPase = function(doc, callback) {
 		});
 
 		const options = {
-		  hostname: 'https://slack.com',
+		  host: 'https://slack.com',
 		  path: '/api/chat.postMessage',
 		  method: 'POST',
 		  headers: {
@@ -27,7 +27,7 @@ exports.nuevoPase = function(doc, callback) {
 		  }
 		};
 
-		const req = https.request(options, (res) => {
+		const req = https.get('https://slack.com/api/chat.postMessage', (res) => {
 		  console.log(`STATUS: ${res.statusCode}`);
 		  console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
 
