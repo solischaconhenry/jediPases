@@ -1,6 +1,7 @@
 var path = require('path'),
     fs = require('fs'),
     bodyParser = require('body-parser'),
+    request =  require('request'),
     pasesController = require('./controllers/pasesController.js');
 
 //-------------------------------------------------------------------------

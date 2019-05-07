@@ -1,8 +1,9 @@
 var path = require('path'),
-	fs = require('fs'),
-	https =  require('https'),
- 	repository = require('../dataAccess/repository.js');
-const envKey = process.env.JOKES_BOT_TOKEN  	
+fs = require('fs'),
+http =  require('https'),
+request = require('request'),
+repository = require('../dataAccess/repository.js');
+const envKey = process.env.JOKES_BOT_TOKEN || 'xoxb-544505390529-599643524034-zZfX4NFaSR7c6npK6gu3Fi4P';
 
 exports.nuevoPase = function(doc, callback) {
 	var params = {
@@ -14,62 +15,34 @@ exports.nuevoPase = function(doc, callback) {
 	if(doc.text = "addPase"){
 
 		//data
-		let postData = JSON.stringify({
-		 	token: envKey,
-		    channel: doc.event.channel,
-		    text:'What is the Name?'
-		});
-
-
-		let options = {
-		  host: 'slack.com',
-		  path: '/api/chat.postMessage',
-		  method: 'POST',
-		  headers: {
-		   	'Content-Length': Buffer.byteLength(postData),
-          	'Content-Type': 'application/x-www-form-urlencoded',
-		  },
+		let body = {
+			channel: doc.event.channel,
+			text:'What is the Name?'
 		};
 
-		/* https.get('https://slack.com/api/chat.postMessage', (res) => {
-		  console.log(`STATUS: ${res.statusCode}`);
-		  console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+		var url = "https://slack.com/api/chat.postMessage";
 
-		  res.setEncoding('utf8');
-		  let rawData = '';
-		  res.on('data', (chunk) => { rawData += chunk; });
-		  res.on('end', () => {
-		    try {
-		      const parsedData = JSON.parse(rawData);
-		      console.log(parsedData);
-		    } catch (e) {
-		      console.error(e.message);
-		    }
-		  });
-		}).on('error', (e) => {
-		  console.error(`Got error: ${e.message}`);
-		});*/
-		
-		const req = https.request(options, (res) => {
-		console.log(`STATUS: ${res.statusCode}`);
-		console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
-		res.setEncoding('utf8');
-		res.on('data', (chunk) => {
-		  console.log(`BODY: ${chunk}`);
-			});
-		res.on('end', () => {
-		  console.log('No more data in response.');
-			});
+		let headers = {
+			'Content-Type': 'application/json',
+			'Authorization' : "Bearer " + envKey
+		};
+
+		request.post({
+			"url": url,
+			"headers": headers,
+			"body": JSON.stringify(body)
+		}, (err, response, body) => {
+			if (err) {
+				reject(err);
+			}
+			console.log("response: ", JSON.stringify(response));
+			console.log("body: ",body);
 		});
 
-		req.on('error', (e) => {
-		  console.error(`problem with request: ${e.message}`);
-		});
 
-		// Write data to request body
-		req.write(postData);
-		req.end();
-		    
+
+
+
 	}
 };
 
@@ -85,13 +58,13 @@ exports.challenge = function(doc, callback) {
 
 
 exports.getPases = function(callback) {
-    var params = {
-        query: {},
-        collection: 'pases'
-    };
-    repository.getCollection(params, function(data){
-            callback(data);
-    });
+	var params = {
+		query: {},
+		collection: 'pases'
+	};
+	repository.getCollection(params, function(data){
+		callback(data);
+	});
 };
 
 exports.getPasePorId = function(idPase, callback) {
@@ -100,7 +73,7 @@ exports.getPasePorId = function(idPase, callback) {
 		collection: 'pases'
 	};
 	repository.getDocument(params, function(data){
-	        callback(data);
+		callback(data);
 	});
 };
 
@@ -112,7 +85,7 @@ exports.editarPase = function(idPase, doc, callback) {
 		updateQuery: {$set: doc},
 		collection: 'pases'
 	};
-    console.log(doc);
+	console.log(doc);
 	repository.updateDocument(params, function(res) {
 		callback(res);
 	});
