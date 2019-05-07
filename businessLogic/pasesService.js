@@ -9,21 +9,24 @@ exports.nuevoPase = function(doc, callback) {
 		query: doc,
 		collection: 'pases'
 	};
-	console.log(doc);
+	console.log(doc)
+	;
 	if(doc.text = "addPase"){
-		let data = {
+
+		//data
+		let postData = JSON.stringify({
 		 	token: envKey,
 		    channel: doc.event.channel,
 		    text:'What is the Name?'
-		};
-		var dataEncoded = JSON.stringify(data);
+		});
+
 
 		let options = {
 		  host: 'slack.com',
 		  path: '/api/chat.postMessage',
 		  method: 'POST',
 		  headers: {
-		   	'Content-Length': Buffer.byteLength(dataEncoded),
+		   	'Content-Length': Buffer.byteLength(postData),
           	'Content-Type': 'application/json',
 		  },
 		};
@@ -47,26 +50,25 @@ exports.nuevoPase = function(doc, callback) {
 		  console.error(`Got error: ${e.message}`);
 		});*/
 		
-	    var req = https.request(
-	      options,
-	      res => {
-	        var buffers = [];
-	        res.on('error',(error) =>{
-	        	console.error(error)
-	        });
-	        res.on('data', buffer => buffers.push(buffer));
-	        res.on('end',() => {
-	        	try {
-			      const parsedData = JSON.parse(dataEncoded);
-			      console.log(parsedData);
-			    } catch (e) {
-			      console.error(e.message);
-			    }
-	        });
-	      }
-	    );
-	    req.write(dataEncoded);
-	    req.end();
+		const req = https.request(options, (res) => {
+		console.log(`STATUS: ${res.statusCode}`);
+		console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+		res.setEncoding('utf8');
+		res.on('data', (chunk) => {
+		  console.log(`BODY: ${chunk}`);
+			});
+		res.on('end', () => {
+		  console.log('No more data in response.');
+			});
+		});
+
+		req.on('error', (e) => {
+		  console.error(`problem with request: ${e.message}`);
+		});
+
+		// Write data to request body
+		req.write(postData);
+		req.end();
 		    
 	}
 };
