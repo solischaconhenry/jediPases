@@ -27,7 +27,7 @@ exports.nuevoPase = function(doc, callback) {
 		  method: 'POST',
 		  headers: {
 		   	'Content-Length': Buffer.byteLength(postData),
-          	'Content-Type': 'application/json',
+          	'Content-Type': 'application/x-www-form-urlencoded',
 		  },
 		};
 
