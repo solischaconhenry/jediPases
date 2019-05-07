@@ -11,42 +11,63 @@ exports.nuevoPase = function(doc, callback) {
 	};
 	console.log(doc);
 	if(doc.text = "addPase"){
-		const data = JSON.stringify({
+		let data = {
 		 	token: envKey,
 		    channel: doc.event.channel,
 		    text:'What is the Name?'
-		});
+		};
+		var dataEncoded = JSON.stringify(data);
 
-		const options = {
-		  host: 'https://slack.com',
+		let options = {
+		  host: 'slack.com',
 		  path: '/api/chat.postMessage',
 		  method: 'POST',
 		  headers: {
-		    'Content-Type': 'application/json',
-		    'Content-Length': Buffer.byteLength(data)
-		  }
+		   	'Content-Length': Buffer.byteLength(dataEncoded),
+          	'Content-Type': 'application/json',
+		  },
 		};
 
-		const req = https.get('https://slack.com/api/chat.postMessage', (res) => {
+		/* https.get('https://slack.com/api/chat.postMessage', (res) => {
 		  console.log(`STATUS: ${res.statusCode}`);
 		  console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
 
 		  res.setEncoding('utf8');
-		  res.on('data', (chunk) => {
-		    console.log(`BODY: ${chunk}`);
-		  });
+		  let rawData = '';
+		  res.on('data', (chunk) => { rawData += chunk; });
 		  res.on('end', () => {
-		    console.log('No more data in response.');
+		    try {
+		      const parsedData = JSON.parse(rawData);
+		      console.log(parsedData);
+		    } catch (e) {
+		      console.error(e.message);
+		    }
 		  });
-		});
-
-		req.on('error', (e) => {
-		  console.error(`problem with request: ${e.message}`);
-		});
-
-		// Write data to request body
-		req.write(data);
-		req.end();
+		}).on('error', (e) => {
+		  console.error(`Got error: ${e.message}`);
+		});*/
+		
+	    var req = https.request(
+	      options,
+	      res => {
+	        var buffers = [];
+	        res.on('error',(error) =>{
+	        	console.error(error)
+	        });
+	        res.on('data', buffer => buffers.push(buffer));
+	        res.on('end',() => {
+	        	try {
+			      const parsedData = JSON.parse(dataEncoded);
+			      console.log(parsedData);
+			    } catch (e) {
+			      console.error(e.message);
+			    }
+	        });
+	      }
+	    );
+	    req.write(dataEncoded);
+	    req.end();
+		    
 	}
 };
 
