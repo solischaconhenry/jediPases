@@ -3,7 +3,7 @@ fs = require('fs'),
 http =  require('https'),
 request = require('request'),
 repository = require('../dataAccess/repository.js');
-const envKey = process.env.TOKEN4 || 'xoxb-544505390529-599643524034-U4gEpjBzMYJ0NblQek5zJBwY';
+const envKey = process.env.TOKEN4 || 'xoxb-544505390529-599643524034-977sB3XlIzNnthvETqQGx12Z';
 
 exports.nuevoPase = function(doc, callback) {
 	var params = {
