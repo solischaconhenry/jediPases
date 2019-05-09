@@ -3,7 +3,7 @@ fs = require('fs'),
 http =  require('https'),
 request = require('request'),
 repository = require('../dataAccess/repository.js');
-const envKey = process.env.TOKEN3;
+const envKey = process.env.TOKEN3 || 'xoxb-544505390529-599643524034-Y4sIAzKB3MUzsimIIhsTxkgq';
 
 exports.nuevoPase = function(doc, callback) {
 	var params = {
@@ -27,17 +27,18 @@ exports.nuevoPase = function(doc, callback) {
 			'Authorization' : "Bearer " + envKey
 		};
 
-		request.post({
+		var req = request.post({
 			"url": url,
 			"headers": headers,
 			"body": JSON.stringify(body)
 		}, (err, response, body) => {
-			if (err) {
-				reject(err);
-			}
-			console.log("response: ", JSON.stringify(response));
-			console.log("body: ",body);
+			if (!error && response.statusCode == 200) {
+        		// Print out the response body
+        		console.log(body)
+        		
+    		}
 		});
+		
 
 
 
