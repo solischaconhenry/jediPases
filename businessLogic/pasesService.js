@@ -24,7 +24,7 @@ exports.nuevoPase = function(doc, callback) {
 
 		let headers = {
 			'Content-Type': 'application/json',
-			'Authorization' : "Bearer " + envKey
+			'Authorization' : `Bearer ${process.env.TOKEN7}`
 		};
 
 		var req = request.post({
@@ -32,12 +32,20 @@ exports.nuevoPase = function(doc, callback) {
 			"headers": headers,
 			"body": JSON.stringify(body)
 		}, (err, response, body) => {
+			if (err && body != '') {
+        		// Print out the response body
+        		console.log(body)
+
+    		}
 			if (!err && response.statusCode == 200) {
         		// Print out the response body
         		console.log(body)
 
     		}
+    		callback(body);
 		});
+
+		
 		
 
 
