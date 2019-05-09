@@ -3,7 +3,7 @@ fs = require('fs'),
 http =  require('https'),
 request = require('request'),
 repository = require('../dataAccess/repository.js');
-const envKey = process.env.TOKEN3 || 'xoxb-544505390529-599643524034-Y4sIAzKB3MUzsimIIhsTxkgq';
+const envKey = process.env.TOKEN4 || 'xoxb-544505390529-599643524034-U4gEpjBzMYJ0NblQek5zJBwY';
 
 exports.nuevoPase = function(doc, callback) {
 	var params = {
@@ -32,10 +32,10 @@ exports.nuevoPase = function(doc, callback) {
 			"headers": headers,
 			"body": JSON.stringify(body)
 		}, (err, response, body) => {
-			if (!error && response.statusCode == 200) {
+			if (!err && response.statusCode == 200) {
         		// Print out the response body
         		console.log(body)
-        		
+
     		}
 		});
 		
