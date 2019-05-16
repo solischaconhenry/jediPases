@@ -3,7 +3,7 @@ fs = require('fs'),
 http =  require('https'),
 request = require('request'),
 repository = require('../dataAccess/repository.js');
-const envKey = process.env.TOKEN9 || 'xoxb-544505390529-599643524034-QYXzJPauoZL54cuFBs6MSthj';
+const envKey = process.env.TOKEN10;
 
 exports.nuevoPase = function(doc, callback) {
 	var params = {
@@ -24,7 +24,7 @@ exports.nuevoPase = function(doc, callback) {
 
 		let headers = {
 			'Content-Type': 'application/json',
-			'Authorization' : `Bearer ${process.env.TOKEN7}`
+			'Authorization' : `Bearer ${process.env.TOKEN9}`
 		};
 
 		var options = { method: 'GET',
