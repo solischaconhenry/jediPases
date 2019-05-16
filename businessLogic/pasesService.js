@@ -3,7 +3,7 @@ fs = require('fs'),
 http =  require('https'),
 request = require('request'),
 repository = require('../dataAccess/repository.js');
-const envKey = process.env.TOKEN7;
+const envKey = process.env.TOKEN7 || 'xoxb-544505390529-599643524034-tz6371tuz5BQoVs9GQjlDNDU';
 
 exports.nuevoPase = function(doc, callback) {
 	var params = {
@@ -27,22 +27,25 @@ exports.nuevoPase = function(doc, callback) {
 			'Authorization' : `Bearer ${process.env.TOKEN7}`
 		};
 
-		var req = request.post({
-			"url": url,
-			"headers": headers,
-			"body": JSON.stringify(body)
-		}, (err, response, body) => {
-			if (err && body != '') {
-        		// Print out the response body
-        		console.log(body)
+		var options = { method: 'GET',
+		url: 'https://slack.com/api/chat.postMessage',
+		qs: 
+			{ channel: doc.event.channel,
+			  text:'What is the Name?'
+			},
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization' : `Bearer ${envKey}`
+		}
 
-    		}
-			if (!err && response.statusCode == 200) {
-        		// Print out the response body
-        		console.log(body)
+		};
+ 
 
-    		}
-    		callback(body);
+		
+		request(options, function (error, response, body) {
+		  if (error) throw new Error(error);
+
+		  console.log(body);
 		});
 
 		
