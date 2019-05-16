@@ -11,25 +11,13 @@ exports.nuevoPase = function(doc, callback) {
 		collection: 'pases'
 	};
 	console.log(doc)
+	console.log(doc.event.channel)
 	;
 	if(doc.text = "addPase"){
 
-		//data
-		let body = {
-			channel: doc.event.channel,
-			text:'What is the Name?'
-		};
-
-		var url = "https://slack.com/api/chat.postMessage";
-
-		let headers = {
-			'Content-Type': 'application/json',
-			'Authorization' : `Bearer ${process.env.TOKEN9}`
-		};
-
-		var options = { method: 'GET',
+		var options = { method: 'POST',
 		url: 'https://slack.com/api/chat.postMessage',
-		qs: 
+		form: 
 			{ channel: doc.event.channel,
 			  text:'What is the Name?'
 			},
