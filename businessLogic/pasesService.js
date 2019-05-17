@@ -10,9 +10,7 @@ exports.nuevoPase = function(doc, callback) {
 		query: doc,
 		collection: 'pases'
 	};
-	console.log(doc)
-	console.log(doc.event.channel)
-	;
+	
 	if(doc.text = "addPase"){
 
 		var options = { method: 'POST',
