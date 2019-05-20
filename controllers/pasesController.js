@@ -18,14 +18,6 @@ exports.general = function(eRequest, eResponse) {
     });
   }
 
-  else if(eRequest.body.event.type === 'message'){
-
-    pasesService.nuevoPase(eRequest.body, function(data){
-
-      eResponse.sendStatus(200);
-    });
-  }
-
   else if(eRequest.body.event.type === 'app_mention'){
 
    if(eRequest.body.text = "addPase"){
