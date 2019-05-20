@@ -12,6 +12,20 @@ exports.challenge = function(doc, callback) {
 	
 };
 
+exports.requestGeneral = function(options,callback){
+	request(options, function (err, res, body) {
+          if (err) throw new Error(err);
+
+          console.log(body);
+          var res = {
+            statusCode: 200,
+            status: 'OK'
+          }
+          callback(res);
+
+     });
+};
+
 
 
 

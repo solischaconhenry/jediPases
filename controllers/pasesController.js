@@ -7,48 +7,37 @@ request = require('request');
 const envKey = process.env.TOKEN10;
 
 exports.general = function(eRequest, eResponse) {
+   console.log(eRequest.body.type);
 
-
- 
-  if(eRequest.body.type === 'url_verification'){
-    console.log(eRequest.body.type);
-
+  if(eRequest.body.event.type === 'url_verification'){
     pasesService.challenge(eRequest.body, function(data){
-      eResponse.send(data);  
+        eResponse.send(data);  
     });
   }
 
-  else if(eRequest.body.event.type === 'app_mention'){
+  switch(eRequest.body.event.type){
 
-   if(eRequest.body.text = "addPase"){
+    case 'app_mention':
+        console.log('asd');
+        if(eRequest.body.text = "addPase"){
 
-    var options = { method: 'POST',
-    url: 'https://slack.com/api/chat.postMessage',
-    form: 
-    { channel: eRequest.body.event.channel,
-      text:'What is the Name?'
-    },
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization' : `Bearer ${envKey}`
-    }
-
-  };
-
-  request(options, function (err, res, body) {
-    if (err) throw new Error(err);
-
-    console.log(body);
-    eResponse.status(200).json({
-          statusCode: 200,
-          status: 'OK'
-    });
-
-  });
-
+          var options = { method: 'POST',
+          url: 'https://slack.com/api/chat.postMessage',
+          form: 
+          { channel: eRequest.body.event.channel,
+            text:'What is the Name?'
+          },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${envKey}`
+          }
+        };
+         pasesService.requestGeneral(options, function(res){
+            eResponse.status(200).json(res);
+         })
+      }
+      break;
   }
-};
-
 };
 
 
