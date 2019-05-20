@@ -3,7 +3,7 @@ var pasesService = require('../businessLogic/pasesService.js');
 exports.general = function(eRequest, eResponse) {
   
 
-  if(eRequest.body.statusCode === 200){
+  if(eRequest.body.ok){
     console.log(eRequest.body);
     eResponse.sendStatus(200);
   }
@@ -23,9 +23,7 @@ exports.general = function(eRequest, eResponse) {
       });
   }
   else if(eRequest.body.event.type === 'app_mention'){
-    pasesService.nuevoPase(eRequest.body,function(data){
-       eResponse.send(data);
-    });
+       pasesService.nuevoPase(eRequest.body)
   };
 
 };
