@@ -24,6 +24,7 @@ exports.general = function(eRequest, eResponse) {
   }
   else if(eRequest.body.event.type === 'app_mention'){
        pasesService.nuevoPase(eRequest.body)
+       eResponse.sendStatus(200);
   };
 
 };

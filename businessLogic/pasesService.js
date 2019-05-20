@@ -32,7 +32,7 @@ exports.nuevoPase = function(doc, callback) {
 		  if (error) throw new Error(error);
 
 		  console.log(body);
-		  
+
 		});
 
 		
