@@ -1,9 +1,12 @@
 var pasesService = require('../businessLogic/pasesService.js'); 
 
 exports.general = function(eRequest, eResponse) {
-  console.log(eRequest.body.type);
-  console.log(eRequest.body);
+  
 
+  if(eRequest.body.statusCode === 200){
+    console.log(eRequest.body);
+    eResponse.sendStatus(200);
+  }
   if(eRequest.body.type === 'url_verification'){
     console.log(eRequest.body.type);
 

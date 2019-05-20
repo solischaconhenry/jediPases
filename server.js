@@ -8,8 +8,8 @@ var path = require('path'),
 var express        = require('express'),
       app          = express(),
       server       = require('http').createServer(app),
-      port         = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT ||8000,
-      ip           = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+      port         = process.env.PORT || 8000,
+      ip           = process.env.IP   || '127.0.0.1';
 //-------------------------------------------------------------------------
 
 //definicion de carpeta para sitios web
@@ -32,9 +32,19 @@ app.use(function (req, res, next) {
 //Start: Routing
 
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "localhost:8080");
+  res.header("Access-Control-Allow-Origin", "localhost:8000");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
+  res.header('Access-Control-Allow-Headers', 'Access-Control-Allow-Origin, Origin, X-Requested-With, Content-Type, Accept, Authorization');
+
+    if(req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, DELETE, GET, OPTIONS');
+    return res.status(200).json({
+      status: 200,
+      title: 'Info: 200 OK',
+      message: ''
+    });
+  }//if
+
   next();
 });
 
