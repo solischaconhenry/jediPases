@@ -3,40 +3,59 @@ path = require('path'),
 fs = require('fs'),
 http =  require('https'),
 request = require('request');
+const TOKEN10 = process.env.TOKEN10;
 
-const envKey = process.env.TOKEN10;
 
 exports.general = function(eRequest, eResponse) {
-   console.log(eRequest.body.type);
 
   if(eRequest.body.event.type === 'url_verification'){
     pasesService.challenge(eRequest.body, function(data){
-        eResponse.send(data);  
+      eResponse.send(data);  
     });
   }
 
   switch(eRequest.body.event.type){
 
     case 'app_mention':
-        console.log('asd');
-        if(eRequest.body.text = "addPase"){
 
-          var options = { method: 'POST',
-          url: 'https://slack.com/api/chat.postMessage',
-          form: 
-          { channel: eRequest.body.event.channel,
-            text:'What is the Name?'
+    if(eRequest.body.text = "getHCV"){
+
+      //pedir trello
+      pasesService.getPasesHC(function(res){
+         
+         //seteo para enviar a slack
+         var attachments = [{
+                      fallback: 'Más Información - https://trello.com/b/9UyXF5Fc/releasehcenter',
+                      text: '<https://trello.com/b/9UyXF5Fc/releasehcenter> - Más Información',
+                      color: "#F35A00",
+                      author_name: "#TEAM-JEDI",
+                      footer: "pasesBac",
+                      fields: res
+              }]
+         var options = { method: 'POST',
+         url: 'https://slack.com/api/chat.postMessage',
+         form: 
+         {    channel: eRequest.body.event.channel,
+              text: 'Versiones de HCenter',
+              attachments: JSON.stringify(attachments)
           },
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization' : `Bearer ${envKey}`
-          }
-        };
-         pasesService.requestGeneral(options, function(res){
-            eResponse.status(200).json(res);
-         })
-      }
-      break;
+           'Content-Type': 'application/json',
+           'Authorization' : `Bearer ${TOKEN10}`
+        }
+      };//fin options
+       //eResponse.status(200).json(options);
+      //envio a slack
+      pasesService.requestGeneral(options, function(res){
+        eResponse.status(200).json(res);
+      });
+
+  });
+
+
+
+    }
+    break;
   }
 };
 
