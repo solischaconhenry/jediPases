@@ -38,7 +38,7 @@ exports.getPasesHC = function(callback){
 	  method: 'GET',
 	  url: 'https://api.trello.com/1/boards/'+ `${board}`+'/lists',
 	  qs: 
-	   { cards: 'all',
+	   { cards: 'open',
 	     card_fields: 'all',
 	     filter: 'open',
 	     fields: 'all',
@@ -53,7 +53,7 @@ exports.getPasesHC = function(callback){
 	 	for (var i = 0; i < dataParse.length; i++) {
 	 		let datos = {
 		 			title : 'Versión',
-		 			value: dataParse[i].cards[0].name,
+		 			value: dataParse[i].cards!= '' ? dataParse[i].cards[0].name : '',
 		 			short: true
 	 			};
 	 		let datos2 = {
