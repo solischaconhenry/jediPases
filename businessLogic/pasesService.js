@@ -48,6 +48,7 @@ exports.getPasesHC = function(callback){
 	 };
 	 this.requestGeneral(options,function(data){
 	 	var res = [];
+	 	
 	 	var dataParse = JSON.parse(data.body) // se parsea la data del json para array
 	 	
 	 	for (var i = 0; i < dataParse.length; i++) {
