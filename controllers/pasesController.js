@@ -8,7 +8,7 @@ const TOKEN10 = process.env.TOKEN10;
 
 exports.general = function(eRequest, eResponse) {
 
-  console.log(eRequest);
+  console.log(eRequest.body);
 
   if(eRequest.body.type === 'url_verification'){
     pasesService.challenge(eRequest.body, function(data){
