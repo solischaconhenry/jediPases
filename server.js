@@ -13,7 +13,9 @@ var express        = require('express'),
 //-------------------------------------------------------------------------
 
 //definicion de carpeta para sitios web
-app.use(express.static(__dirname + '/htdocs'));
+app.use(express.static('htdocs'));
+//definicion de carpeta para assets
+app.use('/assets',express.static('assets'));
 
 
 app.use(bodyParser.urlencoded({'extended':'true'}));
