@@ -2,28 +2,29 @@ var pasesService = require('../businessLogic/pasesService.js'),
 path = require('path'),
 fs = require('fs'),
 http =  require('https'),
-request = require('request');
+request = require('request').
+boardHC = process.env.boardHC,
+boardWS = process.env.boardWS;
 const TOKEN10 = process.env.TOKEN10;
 
 
 exports.general = function(eRequest, eResponse) {
 
-  console.log(eRequest.body);
 
   if(eRequest.body.type === 'url_verification'){
     pasesService.challenge(eRequest.body, function(data){
       eResponse.send(data);  
     });
   }
+  if(eRequest.body.event.type === 'app_mention'){
 
-  switch(eRequest.body.event.type){
+    //extrae con un split "text": "<@channel> getWSV" el mensaje adjunto con el mention
+    var reqTxtType = eRequest.body.event.text.split(' ',2)[1];
 
-    case 'app_mention':
-
-    if(eRequest.body.text = "getHCV"){
-
-      //pedir trello
-      pasesService.getPasesHC(function(res){
+    switch(reqTxtType){
+      case 'getHCV':
+        //pedir trello
+      pasesService.getPasesHC(boardHC, function(res){
          
          //seteo para enviar a slack
          var attachments = [{
@@ -46,19 +47,52 @@ exports.general = function(eRequest, eResponse) {
            'Authorization' : `Bearer ${TOKEN10}`
         }
       };//fin options
-       //eResponse.status(200).json(options);
+
       //envio a slack
       pasesService.requestGeneral(options, function(res){
         eResponse.status(200).json(res);
       });
 
-  });
+    });//fin getPasesHC
 
-
-
-    }
     break;
-  }
+
+    case 'getWSV':
+     pasesService.getPasesHC(boardWS, function(res){
+        
+        //seteo para enviar a slack
+         var attachments = [{
+                      fallback: 'Más Información - https://trello.com/b/Z40ipANn/releasewebservice',
+                      text: '<https://trello.com/b/Z40ipANn/releasewebservice> - Más Información',
+                      color: "#FF9900",
+                      author_name: "#TEAM-JEDI",
+                      footer: "pasesBac",
+                      fields: res
+              }]
+         var options = { method: 'POST',
+         url: 'https://slack.com/api/chat.postMessage',
+         form: 
+         {    channel: eRequest.body.event.channel,
+              text: 'Versiones de Web Service',
+              attachments: JSON.stringify(attachments)
+          },
+          headers: {
+           'Content-Type': 'application/json',
+           'Authorization' : `Bearer ${TOKEN10}`
+        }
+      };//fin options
+
+      //envio a slack
+      pasesService.requestGeneral(options, function(res){
+        eResponse.status(200).json(res);
+      });
+
+     });
+
+    break;
+
+    }//fin switch
+  }//fin if type
 };
 
 

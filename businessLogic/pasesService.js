@@ -4,8 +4,7 @@ http =  require('https'),
 request = require('request'),
 repository = require('../dataAccess/repository.js');
 const key = process.env.key,
-token = process.env.token,
-board = process.env.board;
+token = process.env.token;
 
 exports.challenge = function(doc, callback) {
 	var res = {
@@ -32,7 +31,7 @@ exports.requestGeneral = function(options,callback){
 };
 
 
-exports.getPasesHC = function(callback){
+exports.getPasesHC = function(board,callback){
 	//Obtener List de un Dashboard
 	var options = { 
 	  method: 'GET',
@@ -54,7 +53,7 @@ exports.getPasesHC = function(callback){
 	 	for (var i = 0; i < dataParse.length; i++) {
 	 		let datos = {
 		 			title : 'Versión',
-		 			value: dataParse[i].cards!= '' ? dataParse[i].cards[0].name : '',
+		 			value: dataParse[i].cards!= '' ? dataParse[i].cards[0].name : 'NO REF.',
 		 			short: true
 	 			};
 	 		let datos2 = {
