@@ -95,13 +95,7 @@ exports.general = function(eRequest, eResponse) {
     default:
 
      //seteo para enviar a slack
-       var attachments = [{
-        fallback: 'Más Información - https://trello.com/b/Z40ipANn/releasewebservice',
-        text: '<https://trello.com/b/Z40ipANn/releasewebservice> - Más Información',
-        color: "#FF9900",
-        author_name: "#TEAM-JEDI",
-        footer: "pasesBac",
-        fields: [
+       var attachments =  [
                 {
                   "blocks": [
                   {
@@ -141,8 +135,7 @@ exports.general = function(eRequest, eResponse) {
                   ],
                   "color":"#66ff33"
                 }
-                ]
-        }]//fin attachments
+                ];//fin attachments
          var options = { method: 'POST',
          url: 'https://slack.com/api/chat.postMessage',
          form: 
