@@ -34,7 +34,7 @@ exports.general = function(eRequest, eResponse) {
                       author_name: "#TEAM-JEDI",
                       footer: "pasesBac",
                       fields: res
-              }]
+              }]//fin attachments
          var options = { method: 'POST',
          url: 'https://slack.com/api/chat.postMessage',
          form: 
@@ -51,7 +51,7 @@ exports.general = function(eRequest, eResponse) {
       //envio a slack
       pasesService.requestGeneral(options, function(res){
         eResponse.status(200).json(res);
-      });
+      });//fin requestGeneral
 
     });//fin getPasesHC
 
@@ -68,7 +68,7 @@ exports.general = function(eRequest, eResponse) {
                       author_name: "#TEAM-JEDI",
                       footer: "pasesBac",
                       fields: res
-              }]
+              }]//fin attachments
          var options = { method: 'POST',
          url: 'https://slack.com/api/chat.postMessage',
          form: 
@@ -85,11 +85,84 @@ exports.general = function(eRequest, eResponse) {
       //envio a slack
       pasesService.requestGeneral(options, function(res){
         eResponse.status(200).json(res);
-      });
+      });//fin requestGeneral
 
-     });
+     });//fin getPasesHC
 
     break;
+
+    //sección de ayuda del bot
+    default:
+
+     //seteo para enviar a slack
+       var attachments = [{
+        fallback: 'Más Información - https://trello.com/b/Z40ipANn/releasewebservice',
+        text: '<https://trello.com/b/Z40ipANn/releasewebservice> - Más Información',
+        color: "#FF9900",
+        author_name: "#TEAM-JEDI",
+        footer: "pasesBac",
+        fields: [
+                {
+                  "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "*Versión de Hiper Center Core*"
+                    }
+                  },
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "`@pasesJedi getHCV`"
+                    }
+                  }
+                  ],
+                  "color":"#ff6600"
+                },
+                {
+                  "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "*Versión de Hiper Center WS*"
+                    }
+
+                  },
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "`@pasesJedi getWSV`"
+                    }
+                  }
+                  ],
+                  "color":"#66ff33"
+                }
+                ]
+        }]//fin attachments
+         var options = { method: 'POST',
+         url: 'https://slack.com/api/chat.postMessage',
+         form: 
+         {    channel: eRequest.body.event.channel,
+              text: 'Parece Necesitas Ayuda :thinking_face:',
+              attachments: JSON.stringify(attachments)
+          },
+          headers: {
+           'Content-Type': 'application/json',
+           'Authorization' : `Bearer ${TOKEN10}`
+        }
+      };//fin options
+
+      //envio a slack
+      pasesService.requestGeneral(options, function(res){
+        eResponse.status(200).json(res);
+      });//fin requestGeneral
+
+    break;
+
 
     }//fin switch
   }//fin if type
