@@ -17,7 +17,8 @@ exports.general = function(eRequest, eResponse) {
     });
   }
   console.log(eRequest.body);
-
+  console.log(eRequest.body.event.type);
+  
   //en caso de app_mnention o slash command
   if(eRequest.body.event.type != undefined && eRequest.body.event.type === 'app_mention'){
     //extrae con un split "text": "<@channel> getWSV" el mensaje adjunto con el mention
