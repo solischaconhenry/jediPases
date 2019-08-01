@@ -149,7 +149,7 @@ exports.general = function(eRequest, eResponse) {
        var options = { method: 'POST',
        url: 'https://slack.com/api/chat.postMessage',
        form: 
-       {    channel: eRequest.body.event.channel = undefined ? eRequest.body.channel_name : '',,
+       {    channel: eRequest.body.event.channel = undefined ? eRequest.body.channel_name : '',
             text: 'Parece Necesitas Ayuda :thinking_face:',
             attachments: JSON.stringify(attachments)
         },
