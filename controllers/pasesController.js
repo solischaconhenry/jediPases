@@ -18,13 +18,13 @@ exports.general = function(eRequest, eResponse) {
   }
   console.log(eRequest.body);
   console.log(eRequest.body.event.type);
-  
+
   //en caso de app_mnention o slash command
-  if(eRequest.body.event.type != undefined && eRequest.body.event.type === 'app_mention'){
+  //if(eRequest.body.event.type != undefined && eRequest.body.event.type === 'app_mention'){
     //extrae con un split "text": "<@channel> getWSV" el mensaje adjunto con el mention
-  var reqTxtType = eRequest.body.event.text.split(' ',2)[1];
-  }
-  else if(eRequest.body.command != undefined && eRequest.body.command === '/board'){
+  //var reqTxtType = eRequest.body.event.text.split(' ',2)[1];
+  //}
+  if(eRequest.body.command === '/board'){
     //extrae el texto del comando para seleccionar el board
   var reqTxtType = eRequest.body.text;
 
@@ -49,7 +49,8 @@ exports.general = function(eRequest, eResponse) {
        var options = { method: 'POST',
        url: 'https://slack.com/api/chat.postMessage',
        form: 
-       {    channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_name : '',
+       {    //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_name : '',
+            channel: eRequest.body.channel_name,
             text: 'Versiones de HCenter',
             attachments: JSON.stringify(attachments)
         },
@@ -83,7 +84,8 @@ exports.general = function(eRequest, eResponse) {
        var options = { method: 'POST',
        url: 'https://slack.com/api/chat.postMessage',
        form: 
-       {    channel: eRequest.body.event.channel = undefined? eRequest.body.channel_name : '',
+       {    //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_name : '',
+            channel: eRequest.body.channel_name,
             text: 'Versiones de Web Service',
             attachments: JSON.stringify(attachments)
         },
@@ -150,7 +152,8 @@ exports.general = function(eRequest, eResponse) {
        var options = { method: 'POST',
        url: 'https://slack.com/api/chat.postMessage',
        form: 
-       {    channel: eRequest.body.event.channel = undefined ? eRequest.body.channel_name : '',
+       {    //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_name : '',
+            channel: eRequest.body.channel_name,
             text: 'Parece Necesitas Ayuda :thinking_face:',
             attachments: JSON.stringify(attachments)
         },
