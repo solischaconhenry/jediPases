@@ -84,7 +84,8 @@ exports.general = function(eRequest, eResponse) {
        var options = { method: 'POST',
        url: 'https://slack.com/api/chat.postMessage',
        form: 
-       {    //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_id : '',
+       {    response_type = 'in_channel',
+            //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_id : '',
             channel: eRequest.body.channel_id,
             text: 'Versiones de Web Service',
             attachments: JSON.stringify(attachments)
