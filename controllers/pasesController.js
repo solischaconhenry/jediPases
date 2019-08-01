@@ -59,12 +59,19 @@ exports.general = function(eRequest, eResponse) {
          'Content-Type': 'application/json',
          'Authorization' : `Bearer ${TOKEN10}`
       }
+     
     };//fin options
-
+     var options2 ={    response_type: 'in_channel',
+            //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_id : '',
+            //channel: eRequest.body.channel_id,
+            text: 'Versiones de HCenter',
+            attachments: JSON.stringify(attachments)
+        };
+        eResponse.status(200).json(options2);
     //envio a slack
-    pasesService.requestGeneral(options, function(res){
-      eResponse.status(200).json(res);
-    });//fin requestGeneral
+   // pasesService.requestGeneral(options, function(res){
+     // eResponse.status(200).json(res);
+    //});//fin requestGeneral
 
   });//fin getPasesHC
 
