@@ -51,7 +51,7 @@ exports.general = function(eRequest, eResponse) {
        form: 
        {    response_type: 'in_channel',
             //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_id : '',
-            channel: eRequest.body.channel_id,
+            //channel: eRequest.body.channel_id,
             text: 'Versiones de HCenter',
             attachments: JSON.stringify(attachments)
         },
