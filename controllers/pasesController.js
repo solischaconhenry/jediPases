@@ -49,8 +49,8 @@ exports.general = function(eRequest, eResponse) {
        var options = { method: 'POST',
        url: 'https://slack.com/api/chat.postMessage',
        form: 
-       {    //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_name : '',
-            channel: eRequest.body.channel_name,
+       {    //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_id : '',
+            channel: eRequest.body.channel_id,
             text: 'Versiones de HCenter',
             attachments: JSON.stringify(attachments)
         },
@@ -84,8 +84,8 @@ exports.general = function(eRequest, eResponse) {
        var options = { method: 'POST',
        url: 'https://slack.com/api/chat.postMessage',
        form: 
-       {    //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_name : '',
-            channel: eRequest.body.channel_name,
+       {    //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_id : '',
+            channel: eRequest.body.channel_id,
             text: 'Versiones de Web Service',
             attachments: JSON.stringify(attachments)
         },
@@ -152,8 +152,8 @@ exports.general = function(eRequest, eResponse) {
        var options = { method: 'POST',
        url: 'https://slack.com/api/chat.postMessage',
        form: 
-       {    //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_name : '',
-            channel: eRequest.body.channel_name,
+       {    //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_id : '',
+            channel: eRequest.body.channel_id,
             text: 'Parece Necesitas Ayuda :thinking_face:',
             attachments: JSON.stringify(attachments)
         },
