@@ -62,7 +62,7 @@ exports.general = function(eRequest, eResponse) {
       }
      
     };//fin options*/
-     var options2 ={    response_type: 'in_channel',
+     var options2 ={    response_type: 'ephemeral',
             //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_id : '',
             //channel: eRequest.body.channel_id,
             text: 'Versiones de HCenter',
@@ -90,7 +90,7 @@ exports.general = function(eRequest, eResponse) {
                     footer: "pasesBac",
                     fields: res
             }]//fin attachments
-      var options2 ={    response_type: 'in_channel',
+      var options2 ={    response_type: 'ephemeral',
             //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_id : '',
             //channel: eRequest.body.channel_id,
             text: 'Versiones de HCenter',
@@ -149,7 +149,7 @@ exports.general = function(eRequest, eResponse) {
               }
               ];//fin attachments
               
-       var options2 ={    response_type: 'in_channel',
+       var options2 ={    response_type: 'ephemeral',
             //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_id : '',
             //channel: eRequest.body.channel_id,
             text: 'Versiones de HCenter',
