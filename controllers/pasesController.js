@@ -19,11 +19,11 @@ exports.general = function(eRequest, eResponse) {
   console.log(eRequest.body);
 
   //en caso de app_mnention o slash command
-  if(eRequest.body.event.type === 'app_mention'){
+  if(eRequest.body.event.type != undefined && eRequest.body.event.type === 'app_mention'){
     //extrae con un split "text": "<@channel> getWSV" el mensaje adjunto con el mention
   var reqTxtType = eRequest.body.event.text.split(' ',2)[1];
   }
-  else if(eRequest.body.command === '/board'){
+  else if(eRequest.body.command != undefined && eRequest.body.command === '/board'){
     //extrae el texto del comando para seleccionar el board
   var reqTxtType = eRequest.body.text;
 
