@@ -46,7 +46,8 @@ exports.general = function(eRequest, eResponse) {
                     footer: "pasesBac",
                     fields: res
             }]//fin attachments
-       var options = { method: 'POST',
+      //sección para app mention - deprecated se pasa a slash command
+       /*var options = { method: 'POST',
        url: 'https://slack.com/api/chat.postMessage',
        form: 
        {    response_type: 'in_channel',
@@ -60,15 +61,15 @@ exports.general = function(eRequest, eResponse) {
          'Authorization' : `Bearer ${TOKEN10}`
       }
      
-    };//fin options
+    };//fin options*/
      var options2 ={    response_type: 'in_channel',
             //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_id : '',
             //channel: eRequest.body.channel_id,
             text: 'Versiones de HCenter',
             attachments: JSON.stringify(attachments)
-        };
-        eResponse.status(200).json(options2);
-    //envio a slack
+     };
+     eResponse.status(200).json(options2);
+    //envio a slack cuando se usa appmention, deprecated
    // pasesService.requestGeneral(options, function(res){
      // eResponse.status(200).json(res);
     //});//fin requestGeneral
@@ -89,25 +90,14 @@ exports.general = function(eRequest, eResponse) {
                     footer: "pasesBac",
                     fields: res
             }]//fin attachments
-       var options = { method: 'POST',
-       url: 'https://slack.com/api/chat.postMessage',
-       form: 
-       {    response_type: 'in_channel',
+      var options2 ={    response_type: 'in_channel',
             //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_id : '',
-            channel: eRequest.body.channel_id,
-            text: 'Versiones de Web Service',
+            //channel: eRequest.body.channel_id,
+            text: 'Versiones de HCenter',
             attachments: JSON.stringify(attachments)
-        },
-        headers: {
-         'Content-Type': 'application/json',
-         'Authorization' : `Bearer ${TOKEN10}`
-      }
-    };//fin options
+     };
+     eResponse.status(200).json(options2);
 
-    //envio a slack
-    pasesService.requestGeneral(options, function(res){
-      eResponse.status(200).json(res);
-    });//fin requestGeneral
 
    });//fin getPasesHC
 
@@ -131,7 +121,7 @@ exports.general = function(eRequest, eResponse) {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "`@pasesJedi getHCV or /board getHCV`"
+                    "text": "`/board getHCV`"
                   }
                 }
                 ],
@@ -151,32 +141,21 @@ exports.general = function(eRequest, eResponse) {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "`@pasesJedi getWSV or /board getWSV`"
+                    "text": "`/board getWSV`"
                   }
                 }
                 ],
                 "color":"#66ff33"
               }
               ];//fin attachments
-       var options = { method: 'POST',
-       url: 'https://slack.com/api/chat.postMessage',
-       form: 
-       {    response_type: 'in_channel',
+              
+       var options2 ={    response_type: 'in_channel',
             //channel: eRequest.body.event.channel = undefined ?  eRequest.body.channel_id : '',
-            channel: eRequest.body.channel_id,
-            text: 'Parece Necesitas Ayuda :thinking_face:',
+            //channel: eRequest.body.channel_id,
+            text: 'Versiones de HCenter',
             attachments: JSON.stringify(attachments)
-        },
-        headers: {
-         'Content-Type': 'application/json',
-         'Authorization' : `Bearer ${TOKEN10}`
-      }
-    };//fin options
-
-    //envio a slack
-    pasesService.requestGeneral(options, function(res){
-      eResponse.status(200).json(res);
-    });//fin requestGeneral
+       };
+       eResponse.status(200).json(options2);
 
   break;
 
