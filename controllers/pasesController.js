@@ -16,6 +16,7 @@ exports.general = function(eRequest, eResponse) {
       eResponse.send(data);  
     });
   }
+  console.log(eRequest.body);
   if(eRequest.body.event.type === 'app_mention'){
 
     //extrae con un split "text": "<@channel> getWSV" el mensaje adjunto con el mention
